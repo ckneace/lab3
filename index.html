@@ -1,15 +1,70 @@
 <!DOCTYPE html>
 <html>
   <head>
-    <link rel="stylesheet" href="/styles.css"/>
+
+    <link rel="stylesheet" href="./styles.css">
     <link href="https://fonts.googleapis.com/css?family=Montserrat:400,700" rel="stylesheet">
+
     <title>XKCD Browser</title>
   </head>
+
   <body>
     <div id="app">
       <h1>XKCD Browser</h1>
-    </div>
+      <p>
+      <button v-on:click="previousComic">Previous</button>
+      <button v-on:click="nextComic">Next</button>
+      </p>
+      <p>
+      <button v-on:click="firstComic">First</button>
+      <button v-on:click="lastComic">Last</button>
+      </p>
+      <p>
+      <button v-on:click="randomComic">Random</button>
+      </p>
+      <div v-if="loading">
+        <!-- <img v-bind:src="current.img" v-bind:alt="current.alt"> -->
+        <p>Loading...</p>
+      </div>
+
+      <div v-else>
+        <h2>{{ current.safe_title}}</h2>
+        <img v-bind:src="current.img" v-bind:alt="current.alt">
+        <p><i># {{number}}, drawn on {{current.day}} {{month}} {{current.year}}</i></p>
+</div>
+        <h3>Add a Comment</h3>
+        <form v-on:submit.prevent="addComment">
+          <input v-model="addedName" placeholder="Name"></p>
+          <textarea v-model="addedComment"></textarea>
+          <br/>
+          <button type="submit">Comment</button>
+        </form>
+
+        <star-rating v-bind:increment="0.5" active-color="#f00" @rating-selected="addRating" :show-rating="false"></star-rating>
+        <p>Average Rating : {{averageRating}}</p>
+
+
+        <h3>Comments</h3>
+
+        <div v-for="comment in comments[number]">
+          <hr>
+          <p>{{comment.text}}</p>
+          <p><i>-- {{comment.author}} on {{comment.time}}</i></p>
+        </div>
+
+
+
+
+</div>
+
+<div class="footer">
+
+  <p>&copy; <a href="https://github.com/BYU-CS260-Winter-2018/lab-3-ckneace">Paster your Github link here</a></p>
+</div>
     <script src="https://cdn.jsdelivr.net/npm/vue@2.5.13/dist/vue.js"></script>
-    <script src="/script.js"></script>
-  </body>
+    <script src="https://unpkg.com/vue-star-rating/dist/star-rating.min.js"></script>
+    <script src="./script.js"></script>
+
+
+</body>
 </html>
